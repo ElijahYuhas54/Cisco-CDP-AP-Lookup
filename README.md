@@ -75,12 +75,6 @@ If you move the `scripts/` folder, update `_BASE` accordingly.
 python ap_lookup.py
 ```
 
-Or, if you set up the `ap_lookup` shorthand (see below):
-
-```
-ap_lookup
-```
-
 ---
 
 ## Usage
