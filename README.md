@@ -57,13 +57,11 @@ scripts/
 │   └── ap_lookup.py
 ├── credentials/
 │   └── switch-credentials.txt
-├── FiberStore Switch.txt
-└── mist-mpls-template.txt
 ```
 
 The base path is hardcoded near the top of the script:
 ```python
-_BASE     = Path(r"C:\Users\elija\OneDrive\Documents\Networking\Switches\scripts")
+_BASE     = Path(r"C:\Your\Path")
 CRED_FILE = _BASE / "credentials" / "switch-credentials.txt"
 ```
 
@@ -102,29 +100,6 @@ ap_lookup
 
 4. For each switch, it connects via SSH, runs `show cdp neighbors`, and prints any APs found.
 
----
-
-## AP Name Format
-
-The script detects APs matching the FAU naming convention:
-
-```
-<campus><building_number><building_letters><room>ap<jack>
-```
-
-**Example:** `<campus><building_number><building_letters><room>ap<jack>`
-
-| Segment           | Example  | Description                        |
-|-------------------|----------|------------------------------------|
-| Campus            | `<campus>`    | 2–4 lowercase letters              |
-| Building number   | `<building_number>`     | 1–3 digits                         |
-| Building letters  | `<building_letters>`     | 1–4 lowercase letters              |
-| Room              | `<room>`    | 1–4 digits                         |
-| Literal `ap`      | `ap`     | Always present                     |
-| Jack number       | `<jack>`   | 1–6 digits                         |
-
----
-
 ## Sample Output
 
 ```
@@ -158,37 +133,6 @@ The script tries credentials in this order:
 2. **Secondary** — `SecondaryUsername` / `SecondaryPassword` (if present) — used automatically if primary auth fails
 
 If both fail, the switch is skipped and the script moves on to the next IP.
-
----
-
-## Setting Up the `ap_lookup` Shorthand (Windows)
-
-To run the script by typing `ap_lookup` in any terminal or CMD window:
-
-1. Create a folder for global scripts, e.g. `C:\tools`, and add it to your system `PATH`:
-   - Search **"Edit the system environment variables"**
-   - Click **Environment Variables**
-   - Under **System variables**, select `Path` → **Edit** → **New**
-   - Add `C:\tools`
-
-2. Create `C:\tools\ap_lookup.bat` with the following content:
-   ```bat
-   @echo off
-   python "C:\Users\elija\OneDrive\Documents\Networking\Switches\scripts\python\ap_lookup.py" %*
-   ```
-
-3. Open a new terminal and run:
-   ```
-   ap_lookup
-   ```
-
-> **PowerShell alternative:** Add this line to your PowerShell profile (`notepad $PROFILE`):
-> ```powershell
-> function ap_lookup { python "C:\Users\elija\OneDrive\Documents\Networking\Switches\scripts\python\ap_lookup.py" $args }
-> ```
-> This only works in PowerShell; the `.bat` approach works in both CMD and PowerShell.
-
----
 
 ## Troubleshooting
 
